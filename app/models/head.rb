@@ -3,6 +3,7 @@ class Head < ApplicationRecord
   validate :all_valid_data_urls
 
   DEFAULT_HEADS = %w(bern cage hill locke)
+  include PngDecoder
 
   def self.random_default
     where(external_id: DEFAULT_HEADS).to_a.sample
@@ -11,17 +12,15 @@ class Head < ApplicationRecord
   before_create :set_external_id
 
   def to_blob
-    Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
+    decode_png(data_url)
   end
 
   def background_to_blob
-    return unless background_data_url
-    Base64.decode64(background_data_url['data:image/png;base64,'.length .. -1])
+    decode_png(background_data_url)
   end
 
   def og_to_blob
-    return unless og_data_url
-    Base64.decode64(og_data_url['data:image/png;base64,'.length .. -1])
+    decode_png(og_data_url)
   end
 
   def get_options
