@@ -1,0 +1,10 @@
+var friendheads = new Friendheads('<%= @head.external_id %>'); // <%= @head_id_message %>
+
+friendheads.add(); // add one head
+friendheads.add(7); // add 7 head
+friendheads.add(-2); // remove 2 heads
+
+friendheads.count(); // get head count
+friendheads.count(5); // set head count
+
+friendheads.destroy(); // remove instance from dom
