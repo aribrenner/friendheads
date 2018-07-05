@@ -2,7 +2,7 @@ class Head < ApplicationRecord
   validates_presence_of :data_url
   validate :all_valid_data_urls
 
-  DEFAULT_HEADS = %w(bern kony2012 cage hill locke)
+  DEFAULT_HEADS = %w(bern cage hill locke)
 
   def self.random_default
     where(external_id: DEFAULT_HEADS).to_a.sample
